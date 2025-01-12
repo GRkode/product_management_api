@@ -5,20 +5,22 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Getter
 @Setter
-@Table(name="products")
-public class Product {
+@Entity
+@Table(name = "products")
+public class ProductModel {
     @Id
     @GeneratedValue
     private long id;
     private String name;
-    private double price;    
+    private double price;  
 }
