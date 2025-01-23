@@ -9,10 +9,14 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 
 @RestController
@@ -28,14 +32,38 @@ public class ProductController {
     }
 
     @GetMapping("products")
-    public List<ProductModel> getProducts(@RequestParam String param) {
-        return this.productService.getAllProduct();
+    public ResponseEntity<List<ProductModel>> getProducts() {
+        List<ProductModel> products = productService.getAllProduct();
+        return ResponseEntity.ok(products);
     }
 
     @PostMapping("product")
-    public ProductModel createProduct(@RequestBody ProductModel product) {
-        
-        return this.productService.createProduct(product);
+    public ResponseEntity<ProductModel> createProduct(@RequestBody ProductModel product) {
+        ProductModel createProduct = productService.createProduct(product);
+        return ResponseEntity.ok(createProduct);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<ProductModel> getProduct(@RequestParam long id) {
+        ProductModel findProduct = productService.getProduct(id);
+        return ResponseEntity.ok(findProduct);
+    }
+    
+    @PutMapping("product/{id}")
+    public ResponseEntity<ProductModel> updateProduct(@PathVariable long id, @RequestBody ProductModel product) {
+        ProductModel updateProduct = productService.updateProduct(id, product);
+        return ResponseEntity.ok(updateProduct); 
+    }
+
+    /**
+     * idProduit est liée à la variable id grace à @PathVariable("id")
+     * @param idProduit
+     * @return string
+     */
+    @GetMapping("{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable("id") long idProduit) {
+        productService.deleteProduct(idProduit);
+        return ResponseEntity.noContent().build();
     }
     
     

@@ -1,6 +1,7 @@
 package fr.pathinov.bootcamp.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -20,5 +21,28 @@ public class ProductService {
 
     public ProductModel createProduct(ProductModel product) {
         return productRepository.save(product);
+    }
+
+    public ProductModel getProduct(long id) {
+        return productRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Product not found with ID: " + id));
+    }
+
+    public ProductModel updateProduct(long id, ProductModel product) {
+        ProductModel existingProduct = productRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Product not found with ID: " + id));
+        
+        existingProduct.setName(product.getName());
+        existingProduct.setPrice(product.getPrice());
+
+        return productRepository.save(existingProduct);
+    }
+
+    public String deleteProduct(long idProduit) {
+        ProductModel existingProduct = productRepository.findById(idProduit)
+        .orElseThrow(() -> new RuntimeException("Product not found with ID: " + idProduit));
+
+        productRepository.delete(existingProduct);
+        return "Product successfully removed";
     }
 }
