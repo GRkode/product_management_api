@@ -53,12 +53,12 @@ La documentation interactive de l'API est disponible via **Swagger** à l'adress
 ## Structure du projet  
 ```  
 src/main/java  
-├── com.example.productapi  
-│   ├── controller  
-│   ├── service  
-│   ├── repository  
-│   ├── model  
-│   └── ProductApiApplication.java  
+├── fr.pathinov.bootcamp  
+│   ├── controllers  
+│   ├── services  
+│   ├── repositories  
+│   ├── models  
+│   └── BootcampApplication.java  
 ```  
 
 ## Améliorations futures  
