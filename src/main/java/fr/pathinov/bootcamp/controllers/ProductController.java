@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -60,7 +61,7 @@ public class ProductController {
      * @param idProduit
      * @return string
      */
-    @GetMapping("{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable("id") long idProduit) {
         productService.deleteProduct(idProduit);
         return ResponseEntity.noContent().build();
