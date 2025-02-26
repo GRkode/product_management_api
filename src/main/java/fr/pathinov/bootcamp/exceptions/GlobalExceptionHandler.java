@@ -1,4 +1,4 @@
-package fr.pathinov.bootcamp;
+package fr.pathinov.bootcamp.exceptions;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -11,19 +11,22 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import fr.pathinov.bootcamp.models.ErrorResponse;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     // **1. Gestion des exceptions personnalisées**
-    @ExceptionHandler(ProductNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleProductNotFoundException(ProductNotFoundException ex) {
-        ErrorResponse errorResponse = new ErrorResponse(
-                HttpStatus.NOT_FOUND.value(),
-                ex.getMessage(),
-                LocalDateTime.now()
-        );
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
-    }
+    // @ExceptionHandler(ProductNotFoundException.class)
+    // public ResponseEntity<ErrorResponse>
+    // handleProductNotFoundException(ProductNotFoundException ex) {
+    // ErrorResponse errorResponse = new ErrorResponse(
+    // HttpStatus.NOT_FOUND.value(),
+    // ex.getMessage(),
+    // LocalDateTime.now()
+    // );
+    // return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    // }
 
     // **2. Gestion des erreurs de validation des champs**
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -38,15 +41,15 @@ public class GlobalExceptionHandler {
     }
 
     // **3. Gestion des exceptions générales**
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleGlobalException(Exception ex) {
-        ErrorResponse errorResponse = new ErrorResponse(
-                HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                "An unexpected error occurred: " + ex.getMessage(),
-                LocalDateTime.now()
-        );
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
-    }
+    // @ExceptionHandler(Exception.class)
+    // public ResponseEntity<ErrorResponse> handleGlobalException(Exception ex) {
+    // ErrorResponse errorResponse = new ErrorResponse(
+    // HttpStatus.INTERNAL_SERVER_ERROR.value(),
+    // "An unexpected error occurred: " + ex.getMessage(),
+    // LocalDateTime.now());
+    // return
+    // ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+    // }
 
     // **4. Gestion des exceptions spécifiques (exemple IllegalArgumentException)**
     @ExceptionHandler(IllegalArgumentException.class)
@@ -54,8 +57,7 @@ public class GlobalExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
                 ex.getMessage(),
-                LocalDateTime.now()
-        );
+                LocalDateTime.now());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 }

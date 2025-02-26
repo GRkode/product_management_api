@@ -1,4 +1,4 @@
-package fr.pathinov.bootcamp;
+package fr.pathinov.bootcamp.models;
 
 import java.time.LocalDateTime;
 

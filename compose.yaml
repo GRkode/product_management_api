@@ -25,6 +25,24 @@ services:
       ADMINER_DEFAULT_SERVER: database # Correspond au service "database"
     networks:
       - app_network
+  
+  product-service:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      container_name: product-container
+      restart: always
+      ports:
+        - 8082:8080
+      environment:
+        SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/products
+        SPRING_DATASOURCE_USERNAME: root
+        SPRING_DATASOURCE_PASSWORD: root
+        SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      depends_on:
+        - database
+      networks:
+        - app_network
 
 volumes:
   postgres_data: # Volume nommé pour persister les données de la base de données

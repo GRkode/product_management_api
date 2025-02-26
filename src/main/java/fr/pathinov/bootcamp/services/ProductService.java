@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import fr.pathinov.bootcamp.exceptions.ProductNotFoundException;
 import fr.pathinov.bootcamp.models.ProductModel;
 import fr.pathinov.bootcamp.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,12 +25,12 @@ public class ProductService {
 
     public ProductModel getProduct(long id) {
         return productRepository.findById(id)
-        .orElseThrow(() -> new RuntimeException("Product not found with ID: " + id));
+        .orElseThrow(() -> new ProductNotFoundException("Product ID not found" + id));
     }
 
     public ProductModel updateProduct(long id, ProductModel product) {
         ProductModel existingProduct = productRepository.findById(id)
-        .orElseThrow(() -> new RuntimeException("Product not found with ID: " + id));
+        .orElseThrow(() -> new RuntimeException("Product not found"));
         
         existingProduct.setName(product.getName());
         existingProduct.setPrice(product.getPrice());
@@ -39,7 +40,7 @@ public class ProductService {
 
     public String deleteProduct(long idProduit) {
         ProductModel existingProduct = productRepository.findById(idProduit)
-        .orElseThrow(() -> new RuntimeException("Product not found with ID: " + idProduit));
+        .orElseThrow(() -> new RuntimeException("Product id not found for delete: "));
 
         productRepository.delete(existingProduct);
         return "Product successfully removed";

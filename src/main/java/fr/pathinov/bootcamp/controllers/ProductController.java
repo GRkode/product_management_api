@@ -12,7 +12,6 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -45,9 +44,8 @@ public class ProductController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<ProductModel> getProduct(@RequestParam long id) {
-        ProductModel findProduct = productService.getProduct(id);
-        return ResponseEntity.ok(findProduct);
+    public ProductModel getProduct(@PathVariable("id") long idProduit) {
+        return productService.getProduct(idProduit);
     }
     
     @PutMapping("product/{id}")
